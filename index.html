@@ -1,0 +1,58 @@
+---
+title: Home
+---
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow">Static · Fast · GitHub Pages Ready</span>
+      <h1>Islamic sawalat ke <span>munazzam jawabat</span></h1>
+      <p>Har sawal ka seedha jawab, mukhtasar points, daleel, images aur references ek hi saaf page par.</p>
+      <div class="hero-actions">
+        <a class="btn" href="#answers">Jawabat dekhein</a>
+        <a class="btn secondary" href="{{ '/about/' | relative_url }}">Naya jawab add karna seekhein</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="mini-card"><span>01</span><p>Sawal likhein</p></div>
+      <div class="mini-card"><span>02</span><p>Points aur daleel add karein</p></div>
+      <div class="mini-card"><span>03</span><p>GitHub par push karein</p></div>
+      <div class="mini-card success"><span>✓</span><p>Page automatic live</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="toolbar-section" id="answers">
+  <div class="container">
+    <div class="section-heading">
+      <div><span class="eyebrow">Content Library</span><h2>Tamam sawalat</h2></div>
+      <div class="search-wrap"><input id="searchInput" type="search" placeholder="Sawal ya category search karein..."></div>
+    </div>
+
+    <div class="filter-row" id="categoryFilters">
+      <button class="filter active" data-category="all">Sab</button>
+      {% assign categories = site.answers | map: 'category' | uniq | sort %}
+      {% for category in categories %}
+        {% if category %}<button class="filter" data-category="{{ category | downcase }}">{{ category }}</button>{% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="answers-grid" id="answersGrid">
+      {% assign sorted_answers = site.answers | sort: 'number' %}
+      {% for answer in sorted_answers %}
+      <article class="answer-card" data-search="{{ answer.title | downcase }} {{ answer.summary | downcase }} {{ answer.category | downcase }}" data-category="{{ answer.category | downcase }}">
+        {% if answer.featured_image %}
+          <img src="{{ answer.featured_image | relative_url }}" alt="{{ answer.title }}" loading="lazy">
+        {% endif %}
+        <div class="card-body">
+          <div class="card-meta"><span>Sawal {{ answer.number }}</span><span>{{ answer.category }}</span></div>
+          <h3><a href="{{ answer.url | relative_url }}">{{ answer.title }}</a></h3>
+          <p>{{ answer.summary | default: answer.excerpt | strip_html | truncate: 150 }}</p>
+          <a class="read-more" href="{{ answer.url | relative_url }}">Poora jawab parhein →</a>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+
+    <p class="empty-state" id="emptyState" hidden>Koi matching sawal nahi mila.</p>
+  </div>
+</section>

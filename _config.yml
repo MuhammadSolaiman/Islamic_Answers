@@ -1,0 +1,25 @@
+title: "Islamic Sawalat aur Jawabat"
+description: "Sawal, daleel aur munazzam jawab ek saaf static website mein"
+url: ""
+baseurl: ""
+lang: "ur"
+markdown: kramdown
+permalink: pretty
+collections:
+  answers:
+    output: true
+    permalink: /answers/:name/
+defaults:
+  - scope:
+      path: ""
+      type: answers
+    values:
+      layout: answer
+  - scope:
+      path: ""
+    values:
+      layout: default
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
